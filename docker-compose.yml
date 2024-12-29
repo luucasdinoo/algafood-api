@@ -1,0 +1,13 @@
+version: '4.33.1'
+
+services:
+  database:
+    container_name: container_algafood_database
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DATABASE: algafood_db
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+    ports:
+      - 3306:3306
