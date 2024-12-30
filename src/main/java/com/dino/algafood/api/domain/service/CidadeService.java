@@ -8,6 +8,7 @@ import com.dino.algafood.api.domain.repository.CidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class CidadeService {
         return cidadeRepository.findAll();
     }
 
+    @Transactional
     public Cidade salvar(Cidade cidade){
         Long estadoId = cidade.getEstado().getId();
         Estado estado = estadoService.buscarOuFalhar(estadoId);
@@ -38,6 +40,7 @@ public class CidadeService {
         return cidadeRepository.save(cidade);
     }
 
+    @Transactional
     public void excluir(Long id){
         if (!cidadeRepository.existsById(id)) {
             throw new CidadeNaoEncontradaException(id);

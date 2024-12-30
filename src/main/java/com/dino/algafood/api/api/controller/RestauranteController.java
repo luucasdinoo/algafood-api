@@ -59,43 +59,4 @@ public class RestauranteController {
         return restauranteService.salvar(restauranteAtual);
     }
 
-    @PatchMapping("/{restauranteId}")
-    public Restaurante atualizarParcial(@PathVariable Long restauranteId, @RequestBody Map<String, Object> campos, HttpServletRequest request){
-        Restaurante restauranteAtual = restauranteService.buscarOuFalhar(restauranteId);
-        merge(campos, restauranteAtual, request);
-        return atualizar(restauranteAtual, restauranteId);
-    }
-
-    private void validate(Restaurante restaurante, String objectName) {
-        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
-        validator.validate(restaurante, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            throw new ValidacaoException(bindingResult);
-        }
-    }
-
-    private void merge(Map<String, Object> camposOrigem, Restaurante restauranteDestito, HttpServletRequest request){
-        ServletServerHttpRequest servletServerHttpRequest = new ServletServerHttpRequest(request);
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-
-            Restaurante restauranteOrigem = objectMapper.convertValue(camposOrigem, Restaurante.class);
-
-            camposOrigem.forEach((nomePropriedade, valorPropriedade) -> {
-                Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
-                field.setAccessible(true);
-
-                Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
-
-                ReflectionUtils.setField(field, restauranteDestito, novoValor);
-            });
-        }catch (IllegalArgumentException e){
-            Throwable rootCause = ExceptionUtils.getRootCause(e);
-            throw  new HttpMessageNotReadableException(e.getMessage(), rootCause, servletServerHttpRequest);
-        }
-    }
 }

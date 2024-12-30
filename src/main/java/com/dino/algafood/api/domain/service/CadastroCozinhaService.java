@@ -7,6 +7,7 @@ import com.dino.algafood.api.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,10 +28,12 @@ public class CadastroCozinhaService {
                 .orElseThrow(() -> new CozinhaNaoEncontradaException(id));
     }
 
+    @Transactional
     public Cozinha salvar(Cozinha cozinha) {
         return cozinhaRepository.save(cozinha);
     }
 
+    @Transactional
     public void excluir(Long id) {
         if (!cozinhaRepository.existsById(id)) {
             throw new CozinhaNaoEncontradaException(id);

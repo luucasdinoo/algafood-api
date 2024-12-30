@@ -7,6 +7,7 @@ import com.dino.algafood.api.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,10 +28,12 @@ public class EstadoService {
                 .orElseThrow(() -> new EstadoNaoEncontradoException(id));
     }
 
+    @Transactional
     public Estado salvar(Estado cozinha) {
         return estadoRepository.save(cozinha);
     }
 
+    @Transactional
     public void excluir(Long id) {
         if (!estadoRepository.existsById(id)) {
             throw new EstadoNaoEncontradoException(id);
