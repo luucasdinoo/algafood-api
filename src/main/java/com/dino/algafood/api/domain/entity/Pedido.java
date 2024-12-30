@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -30,16 +30,16 @@ public class Pedido {
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime", name = "data_criacao")
-    private LocalDateTime dataCriacao;
+    private OffsetDateTime dataCriacao;
 
     @Column(name = "data_confirmacao")
-    private LocalDateTime dataConfirmacao;
+    private OffsetDateTime dataConfirmacao;
 
     @Column(name = "data_cancelamento")
-    private LocalDateTime dataCancelamento;
+    private OffsetDateTime dataCancelamento;
 
     @Column(name = "data_entrega")
-    private LocalDateTime dataEntrega;
+    private OffsetDateTime dataEntrega;
 
     @Embedded
     private Endereco enderecoEntrega;
