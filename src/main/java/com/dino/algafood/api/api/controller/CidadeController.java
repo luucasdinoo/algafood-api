@@ -1,5 +1,9 @@
 package com.dino.algafood.api.api.controller;
 
+import com.dino.algafood.api.api.assembler.CidadeAssembler;
+import com.dino.algafood.api.api.assembler.CidadeDisassembler;
+import com.dino.algafood.api.api.model.CidadeResponseDTO;
+import com.dino.algafood.api.api.model.input.CidadeRequestDTO;
 import com.dino.algafood.api.domain.entity.Cidade;
 import com.dino.algafood.api.domain.exception.EstadoNaoEncontradoException;
 import com.dino.algafood.api.domain.exception.NegocioException;
@@ -21,36 +25,38 @@ public class CidadeController {
     @Autowired
     private CidadeService cidadeService;
 
+    @Autowired
+    private CidadeAssembler assembler;
+
+    @Autowired
+    private CidadeDisassembler disassembler;
+
     @GetMapping
-    public ResponseEntity<List<Cidade>> listar(){
+    public ResponseEntity<List<CidadeResponseDTO>> listar(){
         List<Cidade> cidades = cidadeService.listar();
-        return ResponseEntity.ok(cidades);
+        return ResponseEntity.ok(assembler.toCollectionDTO(cidades));
     }
 
     @GetMapping("/{cidadeId}")
     @ResponseStatus(HttpStatus.OK)
-    public  Cidade buscar(@PathVariable Long cidadeId){
-        return cidadeService.buscarOuFalhar(cidadeId);
+    public CidadeResponseDTO buscar(@PathVariable Long cidadeId){
+        return assembler.toDTO(cidadeService.buscarOuFalhar(cidadeId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cidade adicionar (@RequestBody @Valid Cidade cidade){
-        try {
-            return  cidadeService.salvar(cidade);
-
-        }catch (EstadoNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage(), e);
-        }
+    public CidadeResponseDTO adicionar (@RequestBody @Valid CidadeRequestDTO dto){
+        Cidade cidade = disassembler.toDomain(dto);
+        return  assembler.toDTO(cidadeService.salvar(cidade));
     }
 
     @PutMapping("/{cidadeId}")
-    public ResponseEntity<Cidade> atualizar(@PathVariable Long cidadeId, @RequestBody @Valid Cidade cidade){
+    public ResponseEntity<CidadeResponseDTO> atualizar(@PathVariable Long cidadeId, @RequestBody @Valid CidadeRequestDTO dto){
         try {
             Cidade cidadeAtual = cidadeService.buscarOuFalhar(cidadeId);
-            BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+            disassembler.copyToDomain(dto, cidadeAtual);
             Cidade cidadeSalva = cidadeService.salvar(cidadeAtual);
-            return ResponseEntity.ok(cidadeSalva);
+            return ResponseEntity.ok(assembler.toDTO(cidadeSalva));
 
         }catch (EstadoNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);

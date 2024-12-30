@@ -1,11 +1,14 @@
 package com.dino.algafood.api.api.controller;
 
+import com.dino.algafood.api.api.assembler.CozinhaAssembler;
+import com.dino.algafood.api.api.assembler.CozinhaDisassembler;
+import com.dino.algafood.api.api.model.CozinhaResponseDTO;
+import com.dino.algafood.api.api.model.input.CozinhaResquestDTO;
 import com.dino.algafood.api.domain.entity.Cozinha;
 import com.dino.algafood.api.domain.exception.EntidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.CadastroCozinhaService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,23 +24,30 @@ public class CozinhaController {
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
 
+    @Autowired
+    private CozinhaAssembler assembler;
+
+    @Autowired
+    private CozinhaDisassembler disassembler;
+
     @GetMapping()
-    public ResponseEntity<List<Cozinha>> listar(){
+    public ResponseEntity<List<CozinhaResponseDTO>> listar(){
         List<Cozinha> cozinhas = cadastroCozinhaService.listar();
-        return ResponseEntity.ok(cozinhas);
+        return ResponseEntity.ok(assembler.toCollectionDTO(cozinhas));
     }
 
     @GetMapping("/{cozinhaId}")
     @ResponseStatus(HttpStatus.OK)
-    public Cozinha buscar(@PathVariable Long cozinhaId){
-        return cadastroCozinhaService.buscarOuFalhar(cozinhaId);
+    public CozinhaResponseDTO buscar(@PathVariable Long cozinhaId){
+        return assembler.toDTO(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(@RequestBody @Valid Cozinha cozinha){
+    public CozinhaResponseDTO adicionar(@RequestBody @Valid CozinhaResquestDTO dto){
         try {
-            return cadastroCozinhaService.salvar(cozinha);
+            Cozinha cozinha = disassembler.toDomain(dto);
+            return assembler.toDTO(cadastroCozinhaService.salvar(cozinha));
 
         }catch (EntidadeNaoEncontradaException e){
             throw new NegocioException(e.getMessage());
@@ -45,15 +55,11 @@ public class CozinhaController {
     }
 
     @PutMapping("/{cozinhaId}")
-    public Cozinha atualizar (@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha){
+    public CozinhaResponseDTO atualizar (@PathVariable Long cozinhaId, @RequestBody CozinhaResquestDTO dto){
         Cozinha cozinhaAtual = cadastroCozinhaService.buscarOuFalhar(cozinhaId);
-        BeanUtils.copyProperties(cozinha, cozinhaAtual,"id");
-        try {
-            return cadastroCozinhaService.salvar(cozinhaAtual);
-
-        }catch (EntidadeNaoEncontradaException e){
-            throw new NegocioException(e.getMessage());
-        }
+        disassembler.copyToDomain(dto, cozinhaAtual);
+        Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinhaAtual);
+        return assembler.toDTO(cozinhaSalva);
     }
 
     @DeleteMapping("/{cozinhaId}")
