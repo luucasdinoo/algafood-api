@@ -4,6 +4,7 @@ import com.dino.algafood.api.domain.entity.Cozinha;
 import com.dino.algafood.api.domain.exception.EntidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.CadastroCozinhaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class CozinhaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(@RequestBody Cozinha cozinha){
+    public Cozinha adicionar(@RequestBody @Valid Cozinha cozinha){
         try {
             return cadastroCozinhaService.salvar(cozinha);
 

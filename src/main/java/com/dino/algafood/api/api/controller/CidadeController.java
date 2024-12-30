@@ -4,6 +4,7 @@ import com.dino.algafood.api.domain.entity.Cidade;
 import com.dino.algafood.api.domain.exception.EstadoNaoEncontradoException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.CidadeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class CidadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cidade adicionar (@RequestBody Cidade cidade){
+    public Cidade adicionar (@RequestBody @Valid Cidade cidade){
         try {
             return  cidadeService.salvar(cidade);
 
@@ -44,7 +45,7 @@ public class CidadeController {
     }
 
     @PutMapping("/{cidadeId}")
-    public ResponseEntity<Cidade> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade){
+    public ResponseEntity<Cidade> atualizar(@PathVariable Long cidadeId, @RequestBody @Valid Cidade cidade){
         try {
             Cidade cidadeAtual = cidadeService.buscarOuFalhar(cidadeId);
             BeanUtils.copyProperties(cidade, cidadeAtual, "id");
