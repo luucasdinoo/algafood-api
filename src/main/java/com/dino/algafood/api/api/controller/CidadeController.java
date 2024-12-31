@@ -2,7 +2,7 @@ package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.CidadeAssembler;
 import com.dino.algafood.api.api.disassembler.CidadeDisassembler;
-import com.dino.algafood.api.api.model.CidadeResponseDTO;
+import com.dino.algafood.api.api.model.output.CidadeResponseDTO;
 import com.dino.algafood.api.api.model.input.CidadeRequestDTO;
 import com.dino.algafood.api.domain.entity.Cidade;
 import com.dino.algafood.api.domain.exception.EstadoNaoEncontradoException;

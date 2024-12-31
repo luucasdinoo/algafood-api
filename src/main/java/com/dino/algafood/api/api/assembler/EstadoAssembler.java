@@ -1,6 +1,6 @@
 package com.dino.algafood.api.api.assembler;
 
-import com.dino.algafood.api.api.model.EstadoResponseDTO;
+import com.dino.algafood.api.api.model.output.EstadoResponseDTO;
 import com.dino.algafood.api.domain.entity.Estado;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

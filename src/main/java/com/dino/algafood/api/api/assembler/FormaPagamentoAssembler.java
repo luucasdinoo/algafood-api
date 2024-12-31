@@ -1,6 +1,6 @@
 package com.dino.algafood.api.api.assembler;
 
-import com.dino.algafood.api.api.model.FormaPagamentoResponseDTO;
+import com.dino.algafood.api.api.model.output.FormaPagamentoResponseDTO;
 import com.dino.algafood.api.domain.entity.FormaPagamento;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

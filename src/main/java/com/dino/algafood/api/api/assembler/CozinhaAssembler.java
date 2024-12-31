@@ -1,6 +1,6 @@
 package com.dino.algafood.api.api.assembler;
 
-import com.dino.algafood.api.api.model.CozinhaResponseDTO;
+import com.dino.algafood.api.api.model.output.CozinhaResponseDTO;
 import com.dino.algafood.api.domain.entity.Cozinha;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

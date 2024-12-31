@@ -2,7 +2,7 @@ package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.CozinhaAssembler;
 import com.dino.algafood.api.api.disassembler.CozinhaDisassembler;
-import com.dino.algafood.api.api.model.CozinhaResponseDTO;
+import com.dino.algafood.api.api.model.output.CozinhaResponseDTO;
 import com.dino.algafood.api.api.model.input.CozinhaResquestDTO;
 import com.dino.algafood.api.domain.entity.Cozinha;
 import com.dino.algafood.api.domain.exception.EntidadeNaoEncontradaException;
@@ -45,13 +45,8 @@ public class CozinhaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CozinhaResponseDTO adicionar(@RequestBody @Valid CozinhaResquestDTO dto){
-        try {
-            Cozinha cozinha = disassembler.toDomain(dto);
-            return assembler.toDTO(cadastroCozinhaService.salvar(cozinha));
-
-        }catch (EntidadeNaoEncontradaException e){
-            throw new NegocioException(e.getMessage());
-        }
+        Cozinha cozinha = disassembler.toDomain(dto);
+        return assembler.toDTO(cadastroCozinhaService.salvar(cozinha));
     }
 
     @PutMapping("/{cozinhaId}")
