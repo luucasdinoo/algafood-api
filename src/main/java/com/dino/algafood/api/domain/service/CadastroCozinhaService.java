@@ -35,10 +35,9 @@ public class CadastroCozinhaService {
 
     @Transactional
     public void excluir(Long id) {
-        if (!cozinhaRepository.existsById(id)) {
+        if (!cozinhaRepository.existsById(id))
             throw new CozinhaNaoEncontradaException(id);
 
-        }
         try {
             cozinhaRepository.deleteById(id);
             cozinhaRepository.flush();

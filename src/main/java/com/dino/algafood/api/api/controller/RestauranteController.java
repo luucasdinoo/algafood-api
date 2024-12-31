@@ -2,8 +2,8 @@ package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.RestauranteAssembler;
 import com.dino.algafood.api.api.disassembler.RestauranteDisassembler;
-import com.dino.algafood.api.api.model.output.RestauranteResponseDTO;
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
+import com.dino.algafood.api.api.model.output.RestauranteResponseDTO;
 import com.dino.algafood.api.domain.entity.Restaurante;
 import com.dino.algafood.api.domain.exception.CidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
