@@ -1,5 +1,6 @@
 package com.dino.algafood.api.domain.service;
 
+import com.dino.algafood.api.domain.entity.Cidade;
 import com.dino.algafood.api.domain.entity.Cozinha;
 import com.dino.algafood.api.domain.entity.Restaurante;
 import com.dino.algafood.api.domain.exception.RestauranteNaoEncontradoException;
@@ -20,6 +21,9 @@ public class RestauranteService {
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
 
+    @Autowired
+    private CidadeService cidadeService;
+
     public List<Restaurante> listar() {
         return restauranteRepository.findAll();
     }
@@ -32,9 +36,13 @@ public class RestauranteService {
     @Transactional
     public Restaurante salvar(Restaurante restaurante){
         Long cozinhaId = restaurante.getCozinha().getId();
+        Long cidadeId = restaurante.getEndereco().getCidade().getId();
 
         Cozinha cozinha = cadastroCozinhaService.buscarOuFalhar(cozinhaId);
+        Cidade cidade = cidadeService.buscarOuFalhar(cidadeId);
+
         restaurante.setCozinha(cozinha);
+        restaurante.getEndereco().setCidade(cidade);
         return restauranteRepository.save(restaurante);
     }
 

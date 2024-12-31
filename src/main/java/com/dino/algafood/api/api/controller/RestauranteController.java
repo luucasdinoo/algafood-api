@@ -5,6 +5,7 @@ import com.dino.algafood.api.api.disassembler.RestauranteDisassembler;
 import com.dino.algafood.api.api.model.RestauranteResponseDTO;
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
 import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.exception.CidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.RestauranteService;
@@ -54,7 +55,7 @@ public class RestauranteController {
             Restaurante restaurante = disassembler.toDomain(request);
             return assembler.toDto(restauranteService.salvar(restaurante));
 
-        }catch (CozinhaNaoEncontradaException e){
+        }catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e){
             throw new NegocioException(e.getMessage());
         }
     }
@@ -66,7 +67,7 @@ public class RestauranteController {
             disassembler.copyToDomain(request, restauranteAtual);
             Restaurante restauranteSalvo = restauranteService.salvar(restauranteAtual);
             return assembler.toDto(restauranteSalvo);
-        }catch (CozinhaNaoEncontradaException e){
+        }catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e){
             throw new NegocioException(e.getMessage());
         }
     }

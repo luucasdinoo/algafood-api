@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EstadoIdRequestDTO {
+public class CidadeIdRequestDTO {
 
     @NotNull
     private Long id;

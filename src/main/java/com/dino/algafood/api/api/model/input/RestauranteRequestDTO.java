@@ -24,4 +24,8 @@ public class RestauranteRequestDTO {
     @NotNull
     private CozinhaIdResquestDTO cozinha;
 
+    @Valid
+    @NotNull
+    private EnderecoRequestDTO endereco;
+
 }
