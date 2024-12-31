@@ -1,4 +1,4 @@
-package com.dino.algafood.api.api.assembler;
+package com.dino.algafood.api.api.disassembler;
 
 import com.dino.algafood.api.api.model.input.EstadoRequestDTO;
 import com.dino.algafood.api.domain.entity.Estado;

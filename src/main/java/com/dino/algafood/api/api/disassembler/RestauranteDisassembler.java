@@ -1,4 +1,4 @@
-package com.dino.algafood.api.api.assembler;
+package com.dino.algafood.api.api.disassembler;
 
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
 import com.dino.algafood.api.domain.entity.Restaurante;

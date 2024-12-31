@@ -37,4 +37,16 @@ public class RestauranteService {
         restaurante.setCozinha(cozinha);
         return restauranteRepository.save(restaurante);
     }
+
+    @Transactional
+    public void ativar(Long restauranteId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        restaurante.ativar();
+    }
+
+    @Transactional
+    public void inativar(Long restauranteId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        restaurante.inativar();
+    }
 }

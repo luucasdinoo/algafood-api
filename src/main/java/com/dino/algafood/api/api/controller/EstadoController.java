@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.EstadoAssembler;
-import com.dino.algafood.api.api.assembler.EstadoDisassembler;
+import com.dino.algafood.api.api.disassembler.EstadoDisassembler;
 import com.dino.algafood.api.api.model.EstadoResponseDTO;
 import com.dino.algafood.api.api.model.input.EstadoRequestDTO;
 import com.dino.algafood.api.domain.entity.Estado;

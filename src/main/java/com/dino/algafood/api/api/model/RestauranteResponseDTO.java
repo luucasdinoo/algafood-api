@@ -13,5 +13,6 @@ public class RestauranteResponseDTO {
     private String nome;
     private BigDecimal taxaFrete;
     private CozinhaResponseDTO cozinha;
+    private Boolean ativo;
 
 }

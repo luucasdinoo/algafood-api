@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.CozinhaAssembler;
-import com.dino.algafood.api.api.assembler.CozinhaDisassembler;
+import com.dino.algafood.api.api.disassembler.CozinhaDisassembler;
 import com.dino.algafood.api.api.model.CozinhaResponseDTO;
 import com.dino.algafood.api.api.model.input.CozinhaResquestDTO;
 import com.dino.algafood.api.domain.entity.Cozinha;

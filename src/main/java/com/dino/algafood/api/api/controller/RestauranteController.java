@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.RestauranteAssembler;
-import com.dino.algafood.api.api.assembler.RestauranteDisassembler;
+import com.dino.algafood.api.api.disassembler.RestauranteDisassembler;
 import com.dino.algafood.api.api.model.RestauranteResponseDTO;
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
 import com.dino.algafood.api.domain.entity.Restaurante;
@@ -9,7 +9,6 @@ import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -70,5 +69,17 @@ public class RestauranteController {
         }catch (CozinhaNaoEncontradaException e){
             throw new NegocioException(e.getMessage());
         }
+    }
+
+    @PutMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativar(@PathVariable Long restauranteId) {
+        restauranteService.ativar(restauranteId);
+    }
+
+    @DeleteMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long restauranteId) {
+        restauranteService.inativar(restauranteId);
     }
 }
