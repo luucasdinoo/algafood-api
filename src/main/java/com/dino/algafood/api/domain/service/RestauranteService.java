@@ -2,6 +2,7 @@ package com.dino.algafood.api.domain.service;
 
 import com.dino.algafood.api.domain.entity.Cidade;
 import com.dino.algafood.api.domain.entity.Cozinha;
+import com.dino.algafood.api.domain.entity.FormaPagamento;
 import com.dino.algafood.api.domain.entity.Restaurante;
 import com.dino.algafood.api.domain.exception.RestauranteNaoEncontradoException;
 import com.dino.algafood.api.domain.repository.RestauranteRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -23,6 +25,9 @@ public class RestauranteService {
 
     @Autowired
     private CidadeService cidadeService;
+
+    @Autowired
+    private FormaPagamentoService formaPagamentoService;
 
     public List<Restaurante> listar() {
         return restauranteRepository.findAll();
@@ -57,4 +62,21 @@ public class RestauranteService {
         Restaurante restaurante = buscarOuFalhar(restauranteId);
         restaurante.inativar();
     }
+
+    @Transactional
+    public void desassociar(Long restauranteId, Long formaPagamentoId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.removerFormaPagamento(formaPagamento);
+    }
+
+    @Transactional
+    public void associar(Long restauranteId, Long formaPagamentoId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
 }
