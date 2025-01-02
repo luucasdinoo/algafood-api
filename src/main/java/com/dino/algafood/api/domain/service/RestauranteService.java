@@ -1,16 +1,15 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.entity.Cidade;
-import com.dino.algafood.api.domain.entity.Cozinha;
-import com.dino.algafood.api.domain.entity.FormaPagamento;
-import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.entity.*;
 import com.dino.algafood.api.domain.exception.RestauranteNaoEncontradoException;
+import com.dino.algafood.api.domain.repository.ProdutoRepository;
 import com.dino.algafood.api.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -19,6 +18,9 @@ public class RestauranteService {
 
     @Autowired
     private RestauranteRepository restauranteRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
@@ -77,6 +79,11 @@ public class RestauranteService {
         FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
 
         restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
+    public List<Produto> listarProdutos(Long restauranteId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        return produtoRepository.findByRestaurante(restaurante);
     }
 
 }

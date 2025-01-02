@@ -22,6 +22,7 @@ public class RestauranteFormaPagamentoController {
     private FormaPagamentoAssembler assembler;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<FormaPagamentoResponseDTO> listar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscarOuFalhar(restauranteId);
         return assembler.toCollectionDTO(restaurante.getFormaPagamentos());
