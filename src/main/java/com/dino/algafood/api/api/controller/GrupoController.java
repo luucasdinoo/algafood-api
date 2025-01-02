@@ -5,6 +5,7 @@ import com.dino.algafood.api.api.disassembler.GrupoDisassembler;
 import com.dino.algafood.api.api.model.input.GrupoRequestDTO;
 import com.dino.algafood.api.api.model.output.GrupoResponseDTO;
 import com.dino.algafood.api.domain.entity.Grupo;
+import com.dino.algafood.api.domain.entity.Permissao;
 import com.dino.algafood.api.domain.service.GrupoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +62,5 @@ public class GrupoController {
     public void remover(@PathVariable Long id) {
         grupoService.excluir(id);
     }
+
 }

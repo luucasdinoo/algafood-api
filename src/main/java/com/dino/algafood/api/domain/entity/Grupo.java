@@ -20,11 +20,19 @@ public class Grupo {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "grupo_permissao",
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id")
     )
     private List<Permissao> permissaos = new ArrayList<>();
+
+    public boolean adicionarPermissao(Permissao permissao) {
+        return getPermissaos().add(permissao);
+    }
+
+    public boolean removerPermissao(Permissao permissao) {
+        return getPermissaos().remove(permissao);
+    }
 }

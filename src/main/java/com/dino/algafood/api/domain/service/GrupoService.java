@@ -1,6 +1,7 @@
 package com.dino.algafood.api.domain.service;
 
 import com.dino.algafood.api.domain.entity.Grupo;
+import com.dino.algafood.api.domain.entity.Permissao;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.GrupoNaoEncontradoException;
 import com.dino.algafood.api.domain.repository.GrupoRepository;
@@ -16,6 +17,9 @@ public class GrupoService {
 
     @Autowired
     private GrupoRepository grupoRepository;
+
+    @Autowired
+    private PermissaoService permissaoService;
 
     public static final String MSG_GRUPO_EM_USO = "Grupo de código %d não pode ser removido, pois está em uso";
 
@@ -46,5 +50,21 @@ public class GrupoService {
         }catch (DataIntegrityViolationException ex){
             throw new EntidadeEmUsoException(String.format(MSG_GRUPO_EM_USO, id));
         }
+    }
+
+    @Transactional
+    public void associarPermissao(Long grupoId, Long permissaoId) {
+        Grupo gp = buscarOuFalhar(grupoId);
+        Permissao pm = permissaoService.buscarOuFalhar(permissaoId);
+
+        gp.adicionarPermissao(pm);
+    }
+
+    @Transactional
+    public void desassociarPermissao(Long grupoId, Long permissaoId) {
+        Grupo gp = buscarOuFalhar(grupoId);
+        Permissao pm = permissaoService.buscarOuFalhar(permissaoId);
+
+        gp.removerPermissao(pm);
     }
 }
