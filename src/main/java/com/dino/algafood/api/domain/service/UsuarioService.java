@@ -1,5 +1,6 @@
 package com.dino.algafood.api.domain.service;
 
+import com.dino.algafood.api.domain.entity.Grupo;
 import com.dino.algafood.api.domain.entity.Usuario;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.NegocioException;
@@ -20,6 +21,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private GrupoService grupoService;
 
     public Usuario buscarOuFalhar(Long id){
         return usuarioRepository.findById(id)
@@ -66,5 +70,21 @@ public class UsuarioService {
         }
 
         usuario.setSenha(novaSenha);
+    }
+
+    @Transactional
+    public void associarGrupo(Long usuarioId, Long grupoId){
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo gp = grupoService.buscarOuFalhar(grupoId);
+
+        usuario.adicionarGrupo(gp);
+    }
+
+    @Transactional
+    public void desassociarGrupo(Long usuarioId, Long grupoId){
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo gp = grupoService.buscarOuFalhar(grupoId);
+
+        usuario.removerGrupo(gp);
     }
 }

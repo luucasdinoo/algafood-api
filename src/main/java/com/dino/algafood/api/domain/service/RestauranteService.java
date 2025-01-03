@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Service
@@ -30,6 +28,9 @@ public class RestauranteService {
 
     @Autowired
     private FormaPagamentoService formaPagamentoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public List<Restaurante> listar() {
         return restauranteRepository.findAll();
@@ -78,7 +79,7 @@ public class RestauranteService {
     }
 
     @Transactional
-    public void desassociar(Long restauranteId, Long formaPagamentoId) {
+    public void desassociarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
         Restaurante restaurante = buscarOuFalhar(restauranteId);
         FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
 
@@ -86,7 +87,7 @@ public class RestauranteService {
     }
 
     @Transactional
-    public void associar(Long restauranteId, Long formaPagamentoId) {
+    public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
         Restaurante restaurante = buscarOuFalhar(restauranteId);
         FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
 
@@ -98,4 +99,24 @@ public class RestauranteService {
         return produtoRepository.findByRestaurante(restaurante);
     }
 
+    public List<Usuario> listarResponsaveis(Long restauranteId) {
+        List<Usuario> responsaveis = restauranteRepository.findResponsaveisByRestauranteId(restauranteId);
+        return responsaveis;
+    }
+
+    @Transactional
+    public void associarResponsavel(Long restauranteId, Long responsavelId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        Usuario responsavel = usuarioService.buscarOuFalhar(responsavelId);
+
+        restaurante.adicionarResponsavel(responsavel);
+    }
+
+    @Transactional
+    public void desassociarResponsavel(Long restauranteId, Long responsavelId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        Usuario responsavel = usuarioService.buscarOuFalhar(responsavelId);
+
+        restaurante.removerResponsavel(responsavel);
+    }
 }
