@@ -44,7 +44,8 @@ public class Pedido {
     @Embedded
     private Endereco enderecoEntrega;
 
-    private StatusPedido status;
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status = StatusPedido.CRIADO;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "forma_pagamento_id")
@@ -58,7 +59,7 @@ public class Pedido {
     @JoinColumn(name = "usuario_cliente_id", nullable = false)
     private Usuario cliente;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido"/*, fetch = FetchType.EAGER*/)
     private List<ItemPedido> itens;
 
 }

@@ -8,6 +8,7 @@ import com.dino.algafood.api.domain.entity.Restaurante;
 import com.dino.algafood.api.domain.exception.CidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
+import com.dino.algafood.api.domain.exception.RestauranteNaoEncontradoException;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,28 @@ public class RestauranteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void inativar(@PathVariable Long restauranteId) {
         restauranteService.inativar(restauranteId);
+    }
+
+    @PutMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            restauranteService.ativar(restauranteIds);
+
+        }catch (RestauranteNaoEncontradoException e){
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    @DeleteMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            restauranteService.inativar(restauranteIds);
+
+        }catch (RestauranteNaoEncontradoException e){
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @PutMapping("/{restauranteId}/abertura")
