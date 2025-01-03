@@ -129,4 +129,8 @@ public class RestauranteService {
 
         restaurante.removerResponsavel(responsavel);
     }
+
+    public List<FormaPagamento> listarFormasPagamento(Long restauranteId) {
+        return restauranteRepository.findFormaPagamentosByRestauranteId(restauranteId);
+    }
 }

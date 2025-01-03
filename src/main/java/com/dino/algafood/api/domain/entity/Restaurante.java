@@ -50,7 +50,7 @@ public class Restaurante {
     @Column(name = "data_atualizacao", nullable = false,  columnDefinition = "datetime")
     private OffsetDateTime dataAtualizacao;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
                 joinColumns = @JoinColumn(name = "restaurante_id"),
                 inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id")

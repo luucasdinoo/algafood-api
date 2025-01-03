@@ -2,9 +2,11 @@ package com.dino.algafood.api.domain.service;
 
 import com.dino.algafood.api.domain.entity.Grupo;
 import com.dino.algafood.api.domain.entity.Permissao;
+import com.dino.algafood.api.domain.entity.Usuario;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.GrupoNaoEncontradoException;
 import com.dino.algafood.api.domain.repository.GrupoRepository;
+import com.dino.algafood.api.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class GrupoService {
 
     @Autowired
     private GrupoRepository grupoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PermissaoService permissaoService;
@@ -66,5 +71,13 @@ public class GrupoService {
         Permissao pm = permissaoService.buscarOuFalhar(permissaoId);
 
         gp.removerPermissao(pm);
+    }
+
+    public List<Grupo> listarPorUsuario(Long usuarioId) {
+        return usuarioRepository.findGrupoByUsuarioId(usuarioId);
+    }
+
+    public List<Permissao> listarPermissoesPorGrupo(Long grupoId) {
+        return grupoRepository.findPermissoesByGrupoId(grupoId);
     }
 }

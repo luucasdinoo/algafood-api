@@ -31,7 +31,7 @@ public class Usuario {
     @Column(name = "data_cadastro", nullable = false, columnDefinition = "datetime")
     private OffsetDateTime dataCadastro;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "usuario_grupo",
             joinColumns = @JoinColumn(name = "usuario_id"),

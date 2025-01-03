@@ -1,12 +1,13 @@
 package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.PedidoAssembler;
+import com.dino.algafood.api.api.assembler.PedidoResumoAssembler;
 import com.dino.algafood.api.api.model.output.PedidoResponseDTO;
+import com.dino.algafood.api.api.model.output.PedidoResumoResponseDTO;
 import com.dino.algafood.api.domain.entity.Pedido;
 import com.dino.algafood.api.domain.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,14 @@ public class PedidoController {
     @Autowired
     private PedidoAssembler assembler;
 
+    @Autowired
+    private PedidoResumoAssembler resumoAssembler;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<PedidoResponseDTO> listar(){
+    public List<PedidoResumoResponseDTO> listar(){
         List<Pedido> pedidos = pedidoService.listar();
-
-        return assembler.toCollectionDTO(pedidos);
+        return resumoAssembler.toCollectionDTO(pedidos);
     }
 
     @GetMapping("/{pedidoId}")

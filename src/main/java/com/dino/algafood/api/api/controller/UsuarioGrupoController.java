@@ -4,6 +4,7 @@ import com.dino.algafood.api.api.assembler.GrupoAssembler;
 import com.dino.algafood.api.api.model.output.GrupoResponseDTO;
 import com.dino.algafood.api.domain.entity.Grupo;
 import com.dino.algafood.api.domain.entity.Usuario;
+import com.dino.algafood.api.domain.service.GrupoService;
 import com.dino.algafood.api.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,13 @@ public class UsuarioGrupoController {
     @Autowired
     private GrupoAssembler assembler;
 
+    @Autowired
+    private GrupoService grupoService;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<GrupoResponseDTO> listar(@PathVariable Long usuarioId) {
-        Usuario usuario = usuarioService.buscarOuFalhar(usuarioId);
-        List<Grupo> gps = usuario.getGrupos();
+        List<Grupo> gps = grupoService.listarPorUsuario(usuarioId);
         return assembler.toCollectionDTO(gps);
     }
 

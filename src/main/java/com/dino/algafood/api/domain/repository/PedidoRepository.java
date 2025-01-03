@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-    @Query("SELECT p FROM Pedido p JOIN FETCH p.itens")
-    List<Pedido> findAllComItens();
+    @Query("from Pedido p join fetch p.cliente join fetch p.restaurante r join fetch r.cozinha join fetch r.formaPagamentos")
+    List<Pedido> findAllPedidos();
 
 }

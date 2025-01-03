@@ -15,7 +15,6 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-
     @Transactional
     public Pedido buscarOuFalhar(Long pedidoId) {
        Pedido pedido = pedidoRepository.findById(pedidoId)
@@ -26,8 +25,7 @@ public class PedidoService {
 
     @Transactional
     public List<Pedido> listar() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        pedidos.forEach(pedido -> pedido.getItens().size());
+        List<Pedido> pedidos = pedidoRepository.findAllPedidos();
         return pedidos;
     }
 }

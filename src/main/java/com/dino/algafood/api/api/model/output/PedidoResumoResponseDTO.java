@@ -5,11 +5,10 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-public class PedidoResponseDTO {
+public class PedidoResumoResponseDTO {
 
     private Long id;
     private BigDecimal subtotal;
@@ -17,12 +16,6 @@ public class PedidoResponseDTO {
     private BigDecimal valorTotal;
     private String status;
     private OffsetDateTime dataCriacao;
-    private OffsetDateTime dataConfirmacao;
-    private OffsetDateTime dataEntrega;
-    private OffsetDateTime dataCancelamento;
     private RestauranteResumoResponseDTO restaurante;
     private UsuarioResponseDTO cliente;
-    private FormaPagamentoResponseDTO formaPagamento;
-    private EnderecoResponseDTO endereco;
-    private List<ItemPedidoResponseDTO> itens;
 }

@@ -2,6 +2,7 @@ package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.FormaPagamentoAssembler;
 import com.dino.algafood.api.api.model.output.FormaPagamentoResponseDTO;
+import com.dino.algafood.api.domain.entity.FormaPagamento;
 import com.dino.algafood.api.domain.entity.Restaurante;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class RestauranteFormaPagamentoController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<FormaPagamentoResponseDTO> listar(@PathVariable Long restauranteId) {
-        Restaurante restaurante = restauranteService.buscarOuFalhar(restauranteId);
-        return assembler.toCollectionDTO(restaurante.getFormaPagamentos());
+        List<FormaPagamento> formaPagamentos = restauranteService.listarFormasPagamento(restauranteId);
+        return assembler.toCollectionDTO(formaPagamentos);
     }
 
     @DeleteMapping("/{formaPagamentoId}")

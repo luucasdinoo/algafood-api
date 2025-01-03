@@ -20,7 +20,7 @@ public class Grupo {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "grupo_permissao",
             joinColumns = @JoinColumn(name = "grupo_id"),
