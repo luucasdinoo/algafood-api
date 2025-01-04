@@ -32,9 +32,9 @@ public class PedidoService {
     private ProdutoService produtoService;
 
     @Transactional
-    public Pedido buscarOuFalhar(Long pedidoId) {
-       Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new PedidoNaoEncontradoException(pedidoId));
+    public Pedido buscarOuFalhar(String codigoPedido) {
+       Pedido pedido = pedidoRepository.findByCodigo(codigoPedido)
+                .orElseThrow(() -> new PedidoNaoEncontradoException(codigoPedido));
        pedido.getItens().size();
        return pedido;
     }

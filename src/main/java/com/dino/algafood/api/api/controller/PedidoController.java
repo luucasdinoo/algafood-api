@@ -11,9 +11,13 @@ import com.dino.algafood.api.domain.entity.Usuario;
 import com.dino.algafood.api.domain.exception.EntidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.service.PedidoService;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import jakarta.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,15 +40,27 @@ public class PedidoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<PedidoResumoResponseDTO> listar(){
+    public MappingJacksonValue listar(@RequestParam(required = false) String campos){
         List<Pedido> pedidos = pedidoService.listar();
-        return resumoAssembler.toCollectionDTO(pedidos);
+        List<PedidoResumoResponseDTO> pedidosDtos = resumoAssembler.toCollectionDTO(pedidos);
+
+        MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidosDtos);
+
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
+
+        if (StringUtils.isNotBlank(campos))
+            filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+
+        pedidosWrapper.setFilters(filterProvider);
+
+        return pedidosWrapper;
     }
 
-    @GetMapping("/{pedidoId}")
+    @GetMapping("/{codigoPedido}")
     @ResponseStatus(HttpStatus.OK)
-    public PedidoResponseDTO buscar(@PathVariable Long pedidoId){
-        Pedido pedido = pedidoService.buscarOuFalhar(pedidoId);
+    public PedidoResponseDTO buscar(@PathVariable String codigoPedido){
+        Pedido pedido = pedidoService.buscarOuFalhar(codigoPedido);
         return assembler.toDTO(pedido);
     }
 
