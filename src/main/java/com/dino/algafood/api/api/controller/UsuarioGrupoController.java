@@ -3,7 +3,6 @@ package com.dino.algafood.api.api.controller;
 import com.dino.algafood.api.api.assembler.GrupoAssembler;
 import com.dino.algafood.api.api.model.output.GrupoResponseDTO;
 import com.dino.algafood.api.domain.entity.Grupo;
-import com.dino.algafood.api.domain.entity.Usuario;
 import com.dino.algafood.api.domain.service.GrupoService;
 import com.dino.algafood.api.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
