@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 public class PedidoService {
 
@@ -36,13 +34,8 @@ public class PedidoService {
        Pedido pedido = pedidoRepository.findByCodigo(codigoPedido)
                 .orElseThrow(() -> new PedidoNaoEncontradoException(codigoPedido));
        pedido.getItens().size();
+       pedido.getEnderecoEntrega().getCidade().getEstado();
        return pedido;
-    }
-
-    @Transactional
-    public List<Pedido> listar() {
-        List<Pedido> pedidos = pedidoRepository.findAllPedidos();
-        return pedidos;
     }
 
     @Transactional

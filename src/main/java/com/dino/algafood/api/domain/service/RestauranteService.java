@@ -104,11 +104,6 @@ public class RestauranteService {
         restaurante.adicionarFormaPagamento(formaPagamento);
     }
 
-    public List<Produto> listarProdutos(Long restauranteId) {
-        Restaurante restaurante = buscarOuFalhar(restauranteId);
-        return produtoRepository.findByRestaurante(restaurante);
-    }
-
     public List<Usuario> listarResponsaveis(Long restauranteId) {
         List<Usuario> responsaveis = restauranteRepository.findResponsaveisByRestauranteId(restauranteId);
         return responsaveis;

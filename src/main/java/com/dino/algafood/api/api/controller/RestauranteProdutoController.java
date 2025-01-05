@@ -5,6 +5,8 @@ import com.dino.algafood.api.api.disassembler.ProdutoDisassembler;
 import com.dino.algafood.api.api.model.input.ProdutoRequestDTO;
 import com.dino.algafood.api.api.model.output.ProdutoResponseDTO;
 import com.dino.algafood.api.domain.entity.Produto;
+import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.repository.ProdutoRepository;
 import com.dino.algafood.api.domain.service.ProdutoService;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import jakarta.validation.Valid;
@@ -30,10 +32,23 @@ public class RestauranteProdutoController {
     @Autowired
     private ProdutoDisassembler disassembler;
 
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProdutoResponseDTO> listar(@PathVariable Long restauranteId) {
-        List<Produto> produtos = restauranteService.listarProdutos(restauranteId);
+    public List<ProdutoResponseDTO> listar(@PathVariable Long restauranteId,
+                                           @RequestParam(required = false) boolean incluirInativos) {
+        Restaurante restaurante = restauranteService.buscarOuFalhar(restauranteId);
+        List<Produto> produtos = null;
+
+        if (incluirInativos)
+            produtos = produtoRepository.findTodosByRestaurante(restaurante);
+
+        else
+            produtos = produtoRepository.findAtivosByRestaurante(restaurante);
+
+
         return assembler.toCollectionDTO(produtos);
     }
 
