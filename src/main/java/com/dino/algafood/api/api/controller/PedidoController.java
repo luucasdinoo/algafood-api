@@ -6,6 +6,7 @@ import com.dino.algafood.api.api.disassembler.PedidoDisassembler;
 import com.dino.algafood.api.api.model.input.PedidoRequestDTO;
 import com.dino.algafood.api.api.model.output.PedidoResponseDTO;
 import com.dino.algafood.api.api.model.output.PedidoResumoResponseDTO;
+import com.dino.algafood.api.core.data.PageableTranslator;
 import com.dino.algafood.api.domain.entity.Pedido;
 import com.dino.algafood.api.domain.entity.Usuario;
 import com.dino.algafood.api.domain.exception.EntidadeNaoEncontradaException;
@@ -23,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -46,6 +48,7 @@ public class PedidoController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<PedidoResumoResponseDTO> pesquisar(PedidoFilter filtro, Pageable pageable){
+        pageable = traduzirPageable(pageable);
         Page<Pedido> pedidosPage = null;
         List<PedidoResumoResponseDTO> pedidosDto = null;
 
@@ -82,5 +85,21 @@ public class PedidoController {
         }catch (EntidadeNaoEncontradaException e){
             throw new NegocioException(e.getMessage(), e);
         }
+    }
+
+    private Pageable traduzirPageable(Pageable pageable) {
+        var mapeamento = Map.of(
+                "codigo", "codigo",
+                "subtotal", "subtotal",
+                "taxaFrete", "taxaFrete",
+                "valorTotal", "valorTotal",
+                "dataCriacao", "dataCriacao",
+                "restauranteNome", "restaurante.nome",
+                "restauranteId", "restaurante.id",
+                "clienteId", "cliente.id",
+                "clienteNome", "cliente.nome"
+        );
+
+        return PageableTranslator.translate(pageable, mapeamento);
     }
 }
