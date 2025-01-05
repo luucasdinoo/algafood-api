@@ -5,9 +5,14 @@ import com.dino.algafood.api.api.disassembler.CozinhaDisassembler;
 import com.dino.algafood.api.api.model.input.CozinhaResquestDTO;
 import com.dino.algafood.api.api.model.output.CozinhaResponseDTO;
 import com.dino.algafood.api.domain.entity.Cozinha;
+import com.dino.algafood.api.domain.repository.CozinhaRepository;
 import com.dino.algafood.api.domain.service.CadastroCozinhaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +28,22 @@ public class CozinhaController {
     private CadastroCozinhaService cadastroCozinhaService;
 
     @Autowired
+    private CozinhaRepository cozinhaRepository;
+
+    @Autowired
     private CozinhaAssembler assembler;
 
     @Autowired
     private CozinhaDisassembler disassembler;
 
-    @GetMapping()
-    public ResponseEntity<List<CozinhaResponseDTO>> listar(){
-        List<Cozinha> cozinhas = cadastroCozinhaService.listar();
-        return ResponseEntity.ok(assembler.toCollectionDTO(cozinhas));
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Page<CozinhaResponseDTO> listar(@PageableDefault(size = 12) Pageable pageable){
+        Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+
+        List<CozinhaResponseDTO> codinhasDto = assembler.toCollectionDTO(cozinhasPage.getContent());
+
+        return new PageImpl<>(codinhasDto, pageable, cozinhasPage.getTotalElements());
     }
 
     @GetMapping("/{cozinhaId}")

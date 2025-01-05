@@ -16,6 +16,9 @@ import com.dino.algafood.api.domain.service.PedidoService;
 import com.dino.algafood.api.infrastructure.repository.PedidoSpecs;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,14 +45,19 @@ public class PedidoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<PedidoResumoResponseDTO> pesquisar(PedidoFilter filtro){
-        List<Pedido> pedidos = null;
+    public Page<PedidoResumoResponseDTO> pesquisar(PedidoFilter filtro, Pageable pageable){
+        Page<Pedido> pedidosPage = null;
+        List<PedidoResumoResponseDTO> pedidosDto = null;
 
-        if (filtro != null)
-            pedidos = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro));
+        if (filtro != null) {
+            pedidosPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
+            pedidosDto = resumoAssembler.toCollectionDTO(pedidosPage.getContent());
+            return new PageImpl<>(pedidosDto, pageable, pedidosPage.getTotalElements());
+        }
 
-        pedidos = pedidoRepository.findAllPedidos();
-        return resumoAssembler.toCollectionDTO(pedidos);
+        pedidosPage = pedidoRepository.findAllPedidos(pageable);
+        pedidosDto = resumoAssembler.toCollectionDTO(pedidosPage.getContent());
+        return new PageImpl<>(pedidosDto, pageable, pedidosPage.getTotalElements());
     }
 
     @GetMapping("/{codigoPedido}")

@@ -19,10 +19,6 @@ public class CadastroCozinhaService {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
-    public List<Cozinha> listar(){
-        return cozinhaRepository.findAll();
-    }
-
     public Cozinha buscarOuFalhar(Long id) {
         return cozinhaRepository.findById(id)
                 .orElseThrow(() -> new CozinhaNaoEncontradaException(id));
