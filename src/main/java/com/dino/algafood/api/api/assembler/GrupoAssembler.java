@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.assembler;
 
 import com.dino.algafood.api.api.model.output.GrupoResponseDTO;
-import com.dino.algafood.api.domain.entity.Grupo;
+import com.dino.algafood.api.domain.model.entity.Grupo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

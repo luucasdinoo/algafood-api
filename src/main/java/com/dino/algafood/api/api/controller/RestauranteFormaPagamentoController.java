@@ -2,7 +2,7 @@ package com.dino.algafood.api.api.controller;
 
 import com.dino.algafood.api.api.assembler.FormaPagamentoAssembler;
 import com.dino.algafood.api.api.model.output.FormaPagamentoResponseDTO;
-import com.dino.algafood.api.domain.entity.FormaPagamento;
+import com.dino.algafood.api.domain.model.entity.FormaPagamento;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

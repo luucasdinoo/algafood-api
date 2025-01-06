@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.disassembler;
 
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
-import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.model.entity.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

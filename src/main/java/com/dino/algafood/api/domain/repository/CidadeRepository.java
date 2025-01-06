@@ -1,6 +1,6 @@
 package com.dino.algafood.api.domain.repository;
 
-import com.dino.algafood.api.domain.entity.Cidade;
+import com.dino.algafood.api.domain.model.entity.Cidade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

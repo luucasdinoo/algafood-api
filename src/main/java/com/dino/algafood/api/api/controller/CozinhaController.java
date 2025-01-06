@@ -4,7 +4,7 @@ import com.dino.algafood.api.api.assembler.CozinhaAssembler;
 import com.dino.algafood.api.api.disassembler.CozinhaDisassembler;
 import com.dino.algafood.api.api.model.input.CozinhaResquestDTO;
 import com.dino.algafood.api.api.model.output.CozinhaResponseDTO;
-import com.dino.algafood.api.domain.entity.Cozinha;
+import com.dino.algafood.api.domain.model.entity.Cozinha;
 import com.dino.algafood.api.domain.repository.CozinhaRepository;
 import com.dino.algafood.api.domain.service.CadastroCozinhaService;
 import jakarta.validation.Valid;

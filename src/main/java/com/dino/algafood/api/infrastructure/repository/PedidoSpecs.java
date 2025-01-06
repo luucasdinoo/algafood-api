@@ -1,7 +1,7 @@
 package com.dino.algafood.api.infrastructure.repository;
 
-import com.dino.algafood.api.domain.entity.Pedido;
-import com.dino.algafood.api.domain.repository.filter.PedidoFilter;
+import com.dino.algafood.api.domain.model.entity.Pedido;
+import com.dino.algafood.api.domain.filter.PedidoFilter;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

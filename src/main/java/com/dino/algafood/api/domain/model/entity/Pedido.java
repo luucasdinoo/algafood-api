@@ -1,4 +1,4 @@
-package com.dino.algafood.api.domain.entity;
+package com.dino.algafood.api.domain.model.entity;
 
 import com.dino.algafood.api.domain.exception.NegocioException;
 import jakarta.persistence.*;

@@ -4,7 +4,7 @@ import com.dino.algafood.api.api.assembler.GrupoAssembler;
 import com.dino.algafood.api.api.disassembler.GrupoDisassembler;
 import com.dino.algafood.api.api.model.input.GrupoRequestDTO;
 import com.dino.algafood.api.api.model.output.GrupoResponseDTO;
-import com.dino.algafood.api.domain.entity.Grupo;
+import com.dino.algafood.api.domain.model.entity.Grupo;
 import com.dino.algafood.api.domain.service.GrupoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

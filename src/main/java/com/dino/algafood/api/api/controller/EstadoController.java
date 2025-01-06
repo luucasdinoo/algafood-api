@@ -4,7 +4,7 @@ import com.dino.algafood.api.api.assembler.EstadoAssembler;
 import com.dino.algafood.api.api.disassembler.EstadoDisassembler;
 import com.dino.algafood.api.api.model.input.EstadoRequestDTO;
 import com.dino.algafood.api.api.model.output.EstadoResponseDTO;
-import com.dino.algafood.api.domain.entity.Estado;
+import com.dino.algafood.api.domain.model.entity.Estado;
 import com.dino.algafood.api.domain.service.EstadoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

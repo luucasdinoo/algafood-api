@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.assembler;
 
 import com.dino.algafood.api.api.model.output.PermissaoResponseDTO;
-import com.dino.algafood.api.domain.entity.Permissao;
+import com.dino.algafood.api.domain.model.entity.Permissao;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

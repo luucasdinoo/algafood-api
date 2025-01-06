@@ -5,7 +5,7 @@ import com.dino.algafood.api.api.disassembler.RestauranteDisassembler;
 import com.dino.algafood.api.api.model.input.RestauranteRequestDTO;
 import com.dino.algafood.api.api.model.output.RestauranteResponseDTO;
 import com.dino.algafood.api.api.model.view.RestauranteView;
-import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.model.entity.Restaurante;
 import com.dino.algafood.api.domain.exception.CidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.NegocioException;

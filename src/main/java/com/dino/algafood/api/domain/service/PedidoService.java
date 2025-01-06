@@ -1,8 +1,8 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.entity.*;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.exception.PedidoNaoEncontradoException;
+import com.dino.algafood.api.domain.model.entity.*;
 import com.dino.algafood.api.domain.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

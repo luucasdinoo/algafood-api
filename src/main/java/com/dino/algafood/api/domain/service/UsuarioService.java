@@ -1,7 +1,7 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.entity.Grupo;
-import com.dino.algafood.api.domain.entity.Usuario;
+import com.dino.algafood.api.domain.model.entity.Grupo;
+import com.dino.algafood.api.domain.model.entity.Usuario;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.exception.UsuarioNaoEncontradoExcepetion;

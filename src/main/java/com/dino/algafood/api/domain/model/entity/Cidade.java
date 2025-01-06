@@ -1,4 +1,4 @@
-package com.dino.algafood.api.domain.entity;
+package com.dino.algafood.api.domain.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Estado {
+public class Cidade {
 
     @EqualsAndHashCode.Include
     @Id
@@ -16,4 +16,8 @@ public class Estado {
 
     @Column(nullable = false)
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "estado_id", nullable = false)
+    private Estado estado;
 }

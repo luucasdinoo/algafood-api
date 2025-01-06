@@ -4,7 +4,7 @@ import com.dino.algafood.api.api.assembler.FormaPagamentoAssembler;
 import com.dino.algafood.api.api.disassembler.FormaPagamentoDisassembler;
 import com.dino.algafood.api.api.model.input.FormaPagamentoRequestDTO;
 import com.dino.algafood.api.api.model.output.FormaPagamentoResponseDTO;
-import com.dino.algafood.api.domain.entity.FormaPagamento;
+import com.dino.algafood.api.domain.model.entity.FormaPagamento;
 import com.dino.algafood.api.domain.service.FormaPagamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

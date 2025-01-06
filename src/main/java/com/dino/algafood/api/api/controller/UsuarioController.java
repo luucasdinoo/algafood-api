@@ -6,7 +6,7 @@ import com.dino.algafood.api.api.model.input.SenhaRequestDTO;
 import com.dino.algafood.api.api.model.input.UsuarioComSenhaRequestDTO;
 import com.dino.algafood.api.api.model.input.UsuarioRequestDTO;
 import com.dino.algafood.api.api.model.output.UsuarioResponseDTO;
-import com.dino.algafood.api.domain.entity.Usuario;
+import com.dino.algafood.api.domain.model.entity.Usuario;
 import com.dino.algafood.api.domain.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

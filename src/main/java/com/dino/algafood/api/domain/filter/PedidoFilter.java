@@ -1,4 +1,4 @@
-package com.dino.algafood.api.domain.repository.filter;
+package com.dino.algafood.api.domain.filter;
 
 import lombok.Getter;
 import lombok.Setter;

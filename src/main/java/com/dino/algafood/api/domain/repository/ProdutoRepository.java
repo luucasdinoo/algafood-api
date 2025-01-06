@@ -1,7 +1,7 @@
 package com.dino.algafood.api.domain.repository;
 
-import com.dino.algafood.api.domain.entity.Produto;
-import com.dino.algafood.api.domain.entity.Restaurante;
+import com.dino.algafood.api.domain.model.entity.Produto;
+import com.dino.algafood.api.domain.model.entity.Restaurante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

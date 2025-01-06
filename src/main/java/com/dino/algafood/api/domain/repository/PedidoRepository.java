@@ -1,6 +1,6 @@
 package com.dino.algafood.api.domain.repository;
 
-import com.dino.algafood.api.domain.entity.Pedido;
+import com.dino.algafood.api.domain.model.entity.Pedido;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.entity.Cidade;
-import com.dino.algafood.api.domain.entity.Estado;
+import com.dino.algafood.api.domain.model.entity.Cidade;
+import com.dino.algafood.api.domain.model.entity.Estado;
 import com.dino.algafood.api.domain.exception.CidadeNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.repository.CidadeRepository;
