@@ -1,4 +1,4 @@
-package com.dino.algafood.api.domain.exception;
+package com.dino.algafood.api.infrastructure.service.storage;
 
 public class StorageException extends RuntimeException {
 
