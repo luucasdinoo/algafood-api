@@ -14,7 +14,7 @@ import com.dino.algafood.api.domain.exception.NegocioException;
 import com.dino.algafood.api.domain.repository.PedidoRepository;
 import com.dino.algafood.api.domain.filter.PedidoFilter;
 import com.dino.algafood.api.domain.service.PedidoService;
-import com.dino.algafood.api.infrastructure.repository.PedidoSpecs;
+import com.dino.algafood.api.infrastructure.repository.specs.PedidoSpecs;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

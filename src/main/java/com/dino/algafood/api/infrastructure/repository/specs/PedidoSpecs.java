@@ -1,4 +1,4 @@
-package com.dino.algafood.api.infrastructure.repository;
+package com.dino.algafood.api.infrastructure.repository.specs;
 
 import com.dino.algafood.api.domain.model.entity.Pedido;
 import com.dino.algafood.api.domain.filter.PedidoFilter;
