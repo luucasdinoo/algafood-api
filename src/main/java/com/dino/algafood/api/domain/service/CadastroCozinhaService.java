@@ -1,8 +1,8 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.model.entity.Cozinha;
 import com.dino.algafood.api.domain.exception.CozinhaNaoEncontradaException;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
+import com.dino.algafood.api.domain.model.entity.Cozinha;
 import com.dino.algafood.api.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

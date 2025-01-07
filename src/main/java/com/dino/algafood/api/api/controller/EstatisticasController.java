@@ -1,7 +1,7 @@
 package com.dino.algafood.api.api.controller;
 
-import com.dino.algafood.api.domain.model.dto.VendaDiaria;
 import com.dino.algafood.api.domain.filter.VendaDiariaFilter;
+import com.dino.algafood.api.domain.model.dto.VendaDiaria;
 import com.dino.algafood.api.domain.service.VendaQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

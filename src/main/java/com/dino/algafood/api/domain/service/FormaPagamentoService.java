@@ -1,8 +1,8 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.model.entity.FormaPagamento;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.FormaPagamentoNaoEncontradoException;
+import com.dino.algafood.api.domain.model.entity.FormaPagamento;
 import com.dino.algafood.api.domain.repository.FormaPagamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

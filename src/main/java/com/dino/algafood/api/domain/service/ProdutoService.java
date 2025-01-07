@@ -1,8 +1,8 @@
 package com.dino.algafood.api.domain.service;
 
+import com.dino.algafood.api.domain.exception.ProdutoNaoEncontradoException;
 import com.dino.algafood.api.domain.model.entity.Produto;
 import com.dino.algafood.api.domain.model.entity.Restaurante;
-import com.dino.algafood.api.domain.exception.ProdutoNaoEncontradoException;
 import com.dino.algafood.api.domain.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

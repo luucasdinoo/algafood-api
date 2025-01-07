@@ -1,9 +1,9 @@
 package com.dino.algafood.api.domain.service;
 
-import com.dino.algafood.api.domain.model.entity.Grupo;
-import com.dino.algafood.api.domain.model.entity.Permissao;
 import com.dino.algafood.api.domain.exception.EntidadeEmUsoException;
 import com.dino.algafood.api.domain.exception.GrupoNaoEncontradoException;
+import com.dino.algafood.api.domain.model.entity.Grupo;
+import com.dino.algafood.api.domain.model.entity.Permissao;
 import com.dino.algafood.api.domain.repository.GrupoRepository;
 import com.dino.algafood.api.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

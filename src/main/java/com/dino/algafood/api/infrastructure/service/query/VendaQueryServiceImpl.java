@@ -1,9 +1,9 @@
-package com.dino.algafood.api.infrastructure.service;
+package com.dino.algafood.api.infrastructure.service.query;
 
+import com.dino.algafood.api.domain.filter.VendaDiariaFilter;
+import com.dino.algafood.api.domain.model.dto.VendaDiaria;
 import com.dino.algafood.api.domain.model.entity.Pedido;
 import com.dino.algafood.api.domain.model.entity.StatusPedido;
-import com.dino.algafood.api.domain.model.dto.VendaDiaria;
-import com.dino.algafood.api.domain.filter.VendaDiariaFilter;
 import com.dino.algafood.api.domain.service.VendaQueryService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
