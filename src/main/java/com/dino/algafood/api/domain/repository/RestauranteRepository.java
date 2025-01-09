@@ -19,4 +19,7 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
     @Query("select r.formaPagamentos from Restaurante r where r.id = :restauranteId")
     List<FormaPagamento> findFormaPagamentosByRestauranteId(Long restauranteId);
 
+    @Query("From Restaurante r join fetch r.endereco.cidade")
+    List<Restaurante> findAll();
+
 }

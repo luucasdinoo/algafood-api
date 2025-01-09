@@ -30,8 +30,17 @@ public class PedidoAssembler extends RepresentationModelAssemblerSupport<Pedido,
 
         dto.add(algaLinks.linkToPedidos());
 
+        if (entity.podeSerConfirmado())
+            dto.add(algaLinks.linkToConfirmacaoPedido(dto.getCodigo(), "confirmar"));
+
+        if (entity.podeSerEntregue())
+            dto.add(algaLinks.linkToEntregaPedido(dto.getCodigo(), "entregar"));
+
+        if (entity.podeSerCancelado())
+            dto.add(algaLinks.linkToCancelamentoPedido(dto.getCodigo(), "cancelar"));
+
         dto.getRestaurante().add(
-                algaLinks.linkToRestaurantes(dto.getRestaurante().getId()));
+                algaLinks.linkToRestaurante(dto.getRestaurante().getId()));
         dto.getCliente().add(
                 algaLinks.linkToCliente(dto.getCliente().getId()));
         dto.getFormaPagamento().add(

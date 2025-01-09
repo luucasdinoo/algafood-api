@@ -105,4 +105,16 @@ public class Pedido {
     private void gerarCodigo(){
         setCodigo(UUID.randomUUID().toString());
     }
+
+    public boolean podeSerConfirmado(){
+        return getStatus().podeAlterarPara(StatusPedido.CONFIRMADO);
+    }
+
+    public boolean podeSerEntregue(){
+        return getStatus().podeAlterarPara(StatusPedido.ENTREGUE);
+    }
+
+    public boolean podeSerCancelado(){
+        return getStatus().podeAlterarPara(StatusPedido.CANCELADO);
+    }
 }

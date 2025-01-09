@@ -2,7 +2,6 @@ package com.dino.algafood.api.domain.service;
 
 import com.dino.algafood.api.domain.exception.RestauranteNaoEncontradoException;
 import com.dino.algafood.api.domain.model.entity.*;
-import com.dino.algafood.api.domain.repository.ProdutoRepository;
 import com.dino.algafood.api.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ public class RestauranteService {
     private RestauranteRepository restauranteRepository;
 
     @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
 
     @Autowired
@@ -32,13 +28,17 @@ public class RestauranteService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Transactional(readOnly = true)
     public List<Restaurante> listar() {
         return restauranteRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Restaurante buscarOuFalhar(Long id){
-        return restauranteRepository.findById(id)
-                .orElseThrow(() -> new RestauranteNaoEncontradoException(id));
+        Restaurante restaurante = restauranteRepository.findById(id)
+                    .orElseThrow(() -> new RestauranteNaoEncontradoException(id));
+        restaurante.getEndereco().getCidade().getEstado();
+        return restaurante;
     }
 
     @Transactional
