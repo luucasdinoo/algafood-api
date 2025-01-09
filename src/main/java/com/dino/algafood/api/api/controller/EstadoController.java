@@ -8,6 +8,7 @@ import com.dino.algafood.api.domain.model.entity.Estado;
 import com.dino.algafood.api.domain.service.EstadoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,22 +29,22 @@ public class EstadoController {
     private EstadoDisassembler disassembler;
 
     @GetMapping
-    public ResponseEntity<List<EstadoResponseDTO>> listar(){
+    public ResponseEntity<CollectionModel<EstadoResponseDTO>> listar(){
         List<Estado> estados = estadoService.listar();
-        return ResponseEntity.ok(assembler.toCollectionDTO(estados));
+        return ResponseEntity.ok(assembler.toCollectionModel(estados));
     }
 
     @GetMapping("/{estadoId}")
     @ResponseStatus(HttpStatus.OK)
     public EstadoResponseDTO buscar(@PathVariable Long estadoId){
-        return assembler.toDTO(estadoService.buscarOuFalhar(estadoId));
+        return assembler.toModel(estadoService.buscarOuFalhar(estadoId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EstadoResponseDTO adicionar(@RequestBody @Valid EstadoRequestDTO dto){
         Estado estado = disassembler.toDomain(dto);
-        return assembler.toDTO(estadoService.salvar(estado));
+        return assembler.toModel(estadoService.salvar(estado));
     }
 
     @PutMapping("/{estadoId}")
@@ -51,7 +52,7 @@ public class EstadoController {
         Estado estadoAtual = estadoService.buscarOuFalhar(estadoId);
         disassembler.copyToDomain(dto, estadoAtual);
         Estado estadoSalvo = estadoService.salvar(estadoAtual);
-        return ResponseEntity.ok(assembler.toDTO(estadoSalvo));
+        return ResponseEntity.ok(assembler.toModel(estadoSalvo));
     }
 
     @DeleteMapping("/{estadoId}")

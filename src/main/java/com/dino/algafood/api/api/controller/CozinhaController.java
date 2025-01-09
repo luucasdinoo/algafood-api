@@ -10,14 +10,13 @@ import com.dino.algafood.api.domain.service.CadastroCozinhaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,27 +34,28 @@ public class CozinhaController {
     @Autowired
     private CozinhaDisassembler disassembler;
 
+    @Autowired
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    private PagedResourcesAssembler<Cozinha> pagedResourcesAssembler;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<CozinhaResponseDTO> listar(@PageableDefault(size = 12) Pageable pageable){
+    public PagedModel<CozinhaResponseDTO> listar(@PageableDefault(size = 12) Pageable pageable){
         Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
-
-        List<CozinhaResponseDTO> codinhasDto = assembler.toCollectionDTO(cozinhasPage.getContent());
-
-        return new PageImpl<>(codinhasDto, pageable, cozinhasPage.getTotalElements());
+        return pagedResourcesAssembler.toModel(cozinhasPage, assembler);
     }
 
     @GetMapping("/{cozinhaId}")
     @ResponseStatus(HttpStatus.OK)
     public CozinhaResponseDTO buscar(@PathVariable Long cozinhaId){
-        return assembler.toDTO(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
+        return assembler.toModel(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CozinhaResponseDTO adicionar(@RequestBody @Valid CozinhaResquestDTO dto){
         Cozinha cozinha = disassembler.toDomain(dto);
-        return assembler.toDTO(cadastroCozinhaService.salvar(cozinha));
+        return assembler.toModel(cadastroCozinhaService.salvar(cozinha));
     }
 
     @PutMapping("/{cozinhaId}")
@@ -63,7 +63,7 @@ public class CozinhaController {
         Cozinha cozinhaAtual = cadastroCozinhaService.buscarOuFalhar(cozinhaId);
         disassembler.copyToDomain(dto, cozinhaAtual);
         Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinhaAtual);
-        return assembler.toDTO(cozinhaSalva);
+        return assembler.toModel(cozinhaSalva);
     }
 
     @DeleteMapping("/{cozinhaId}")

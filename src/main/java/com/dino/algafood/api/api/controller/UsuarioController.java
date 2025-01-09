@@ -10,6 +10,7 @@ import com.dino.algafood.api.domain.model.entity.Usuario;
 import com.dino.algafood.api.domain.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +34,14 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public UsuarioResponseDTO buscar(@PathVariable Long id) {
         Usuario response = usuarioService.buscarOuFalhar(id);
-        return assembler.toDTO(response);
+        return assembler.toModel(response);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UsuarioResponseDTO> listar() {
+    public CollectionModel<UsuarioResponseDTO> listar() {
         List<Usuario> responseList = usuarioService.listar();
-        return assembler.toCollectionDTO(responseList);
+        return assembler.toCollectionModel(responseList);
     }
 
     @PostMapping
@@ -48,7 +49,7 @@ public class UsuarioController {
     public UsuarioResponseDTO salvar(@Valid @RequestBody UsuarioComSenhaRequestDTO request){
         Usuario usuario = disassembler.toDomain(request);
         usuario = usuarioService.salvar(usuario);
-        return assembler.toDTO(usuario);
+        return assembler.toModel(usuario);
     }
 
     @PutMapping("/{id}")
@@ -56,14 +57,9 @@ public class UsuarioController {
         Usuario usuario = usuarioService.buscarOuFalhar(id);
         disassembler.copyToDomain(request, usuario);
         usuario = usuarioService.salvar(usuario);
-        return assembler.toDTO(usuario);
+        return assembler.toModel(usuario);
     }
 
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void remover(@PathVariable Long id){
-//        usuarioService.excluir(id);
-//    }
 
     @PutMapping("/{id}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)

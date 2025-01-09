@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class EnderecoResponseDTO {
+public class EnderecoResponseDTO{
 
     private String cep;
 

@@ -5,6 +5,7 @@ import com.dino.algafood.api.api.model.output.UsuarioResponseDTO;
 import com.dino.algafood.api.domain.model.entity.Usuario;
 import com.dino.algafood.api.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,9 @@ public class RestauranteUsuarioResponsavelController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UsuarioResponseDTO> listar(@PathVariable Long restauranteId) {
+    public CollectionModel<UsuarioResponseDTO> listar(@PathVariable Long restauranteId) {
         List<Usuario> responsaveis = restauranteService.listarResponsaveis(restauranteId);
-        return assembler.toCollectionDTO(responsaveis);
+        return assembler.toCollectionModel(responsaveis).removeLinks();
     }
 
     @PutMapping("/{responsavelId}")
